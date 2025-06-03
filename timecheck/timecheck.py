@@ -93,7 +93,7 @@ class TimeCheckPrivate:
                 return False
         return True
 
-    def check_update(self):
+    def should_update(self):
         """Raises a drf exception `NoUpdate` which provides details that there is no need to update the server."""
         logger.debug(
             f"Checking update: client={self.client_timestamp}, server={self.server_timestamp}"

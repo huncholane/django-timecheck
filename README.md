@@ -42,7 +42,7 @@ class MyView(APIView):
 
     def put(request: Request, pk:int):
         instance = MyModel.objects.get(pk=pk)
-        TimeCheck(request,instance).check_update() # throws rest framework exception
+        TimeCheck(request,instance).should_update() # throws rest framework exception
         ...
         return Response(data)
 ```
@@ -70,7 +70,7 @@ TimeCheck(request, ...) has the following arguments:
 ### TimeCheck Methods
 
 - `should_get` Raises a `NoUpdate` exception when the client timestamp is newer than or equal to the server timestamp. Returns a True if the client should receive data.
-- `check_update` Raises a `NoUpdate` exception when the client timestamp is older than or equal to the server timestamp. Returns a True if the update should continue.
+- `should_update` Raises a `NoUpdate` exception when the client timestamp is older than or equal to the server timestamp. Returns a True if the update should continue.
 
 ---
 
