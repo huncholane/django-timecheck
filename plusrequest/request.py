@@ -23,3 +23,4 @@ class PlusRequest(Request, HttpRequest):
             ...
             return Response(data)
         ```"""
+        return TimestampOp(self)
