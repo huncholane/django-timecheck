@@ -4,14 +4,13 @@ version = "0.1.0"
 description = "Wrapper for django request to help handle synchronization."
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = ["django"]
+dependencies = ["django", "djangorestframework"]
 
 [project.urls]
 Homepage = "https://github.com/huncholane/django-smartwatch"
 
 [tool.setuptools.packages.find]
-include = ["timecheck"]
-where = ["."]
+where = ["timecheck"]
 
 [build-system]
 requires = ["setuptools"]
