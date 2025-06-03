@@ -29,15 +29,18 @@ class TimeCheckTests(TestCase):
     def test_get_client_is_older(self):
         client_time = fmt_dt(self.earlier)
         response = self.client.get("/", HTTP_LASTUPDATED=client_time)
+        conf["raise_exception"] = True
         self.assertEqual(response.status_code, 200)
 
     def test_get_client_is_equal(self):
         client_time = fmt_dt(self.now)
         response = self.client.get("/", HTTP_LASTUPDATED=client_time)
+        conf["raise_exception"] = True
         self.assertEqual(response.status_code, conf["noupdate_code"])
 
     def test_put_client_is_newer(self):
         client_time = fmt_dt(self.later)
+        conf["raise_exception"] = True
         response = self.client.put(
             "/",
             {
@@ -50,15 +53,24 @@ class TimeCheckTests(TestCase):
 
     def test_put_client_is_older(self):
         client_time = fmt_dt(self.earlier)
+        conf["raise_exception"] = True
         response = self.client.put(
             "/",
             {"lastUpdated": client_time},
             format="json",
         )
         self.assertEqual(response.status_code, conf["noupdate_code"])
+        conf["raise_exception"] = False
+        response = self.client.put(
+            "/",
+            {"lastUpdated": client_time},
+            format="json",
+        )
+        self.assertEqual(response.status_code, 200)
 
     def test_put_client_is_equal(self):
         client_time = fmt_dt(self.now)
+        conf["raise_exception"] = True
         response = self.client.put(
             "/",
             {"lastUpdated": client_time},
