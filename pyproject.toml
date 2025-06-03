@@ -10,7 +10,7 @@ dependencies = ["django"]
 Homepage = "https://github.com/huncholane/django-smartwatch"
 
 [tool.setuptools.packages.find]
-include = ["plusrequest"]
+include = ["timecheck"]
 where = ["."]
 
 [build-system]
