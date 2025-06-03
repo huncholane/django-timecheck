@@ -9,8 +9,8 @@ dependencies = ["django", "djangorestframework"]
 [project.urls]
 Homepage = "https://github.com/huncholane/django-smartwatch"
 
-[tool.setuptools.packages.find]
-where = ["timecheck"]
+[tool.setuptools]
+packages = ["timecheck"]
 
 [build-system]
 requires = ["setuptools"]
