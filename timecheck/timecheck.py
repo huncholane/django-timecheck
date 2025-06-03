@@ -47,11 +47,11 @@ class TimeCheckPrivate:
         self.client_timestamp = client_timestamp
 
         if server_timestamp:
-            self.server_timestamp = normalize_dt(server_timestamp)
+            self.server_timestamp = normalize_dt(server_timestamp, self._dt_fmt)
         elif self._instance_field and hasattr(instance, self._instance_field):
             val = getattr(instance, self._instance_field)
             if isinstance(val, dt.datetime):
-                self.server_timestamp = normalize_dt(val, self._date)
+                self.server_timestamp = normalize_dt(val, self._dt_fmt)
         else:
             raise InvalidServerDatetimeField(
                 self._instance_field or "No instance field",
