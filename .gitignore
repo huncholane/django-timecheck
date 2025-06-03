@@ -1,29 +1,4 @@
-# Bytecode
-*.py[cod]
-__pycache__/
-
-# Environments
-.env
-.venv/
-venv/
-
-# Editor
-.vscode/
-.idea/
-*.swp
-
-# Build artifacts
-*.egg-info/
-dist/
 build/
-
-# Django
-db.sqlite3
-*.log
-
-# Tests
-.coverage
-.pytest_cache/
-
-/app
+*.egg-info/
+__pycache__/
 

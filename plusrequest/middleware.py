@@ -1,5 +1,4 @@
-from rest_framework.request import Request
-from plusrequest.request import PlusRequest
+from plusrequest.timestamp_op import TimestampOp
 
 
 class PlusRequestMiddleware:
@@ -7,12 +6,12 @@ class PlusRequestMiddleware:
         self.get_response = get_response
         # One-time configuration and initialization.
 
-    def __call__(self, request: Request):
+    def __call__(self, request):
         # Code to be executed for each request before
         # the view (and later middleware) are called.
 
         # Add header device date functionality to request
-        request = PlusRequest._promote_drf_to_plus_request(request)
+        request.top_builder = TimestampOp(request)
 
         # Ensure the member shortcut exists
         response = self.get_response(request)

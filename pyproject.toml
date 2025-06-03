@@ -9,8 +9,10 @@ dependencies = ["django"]
 [project.urls]
 Homepage = "https://github.com/huncholane/django-smartwatch"
 
-[tool.setuptools]
-packages = ["plusrequest"]
+[tool.setuptools.packages.find]
+include = ["plusrequest"]
+where = ["."]
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"

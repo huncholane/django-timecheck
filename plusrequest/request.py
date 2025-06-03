@@ -1,13 +1,14 @@
 from typing import (
     TYPE_CHECKING,
 )
+from django.http import HttpRequest
 from rest_framework.request import Request
 
 from plusrequest.meta import Meta
 from plusrequest.timestamp_op import TimestampOp
 
 
-class PlusRequest(Request):
+class PlusRequest(Request, HttpRequest):
     if TYPE_CHECKING:
         META: Meta
 
@@ -22,8 +23,3 @@ class PlusRequest(Request):
             ...
             return Response(data)
         ```"""
-        return TimestampOp(self)
-
-    @classmethod
-    def _promote_drf_to_plus_request(cls, request: Request):
-        return cls(request._request)

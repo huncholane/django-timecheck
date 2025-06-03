@@ -1,6 +1,6 @@
 import datetime as dt
-from typing import TYPE_CHECKING
 from django.db import models
+from rest_framework.request import Request
 
 from plusrequest.exceptions import (
     InvalidClientDatetimeField,
@@ -10,9 +10,6 @@ from plusrequest.exceptions import (
 from plusrequest.settings import conf
 from plusrequest.types import MissingAction
 
-if TYPE_CHECKING:
-    from plusrequest.request import PlusRequest
-
 
 class TimestampOp:
     """Builds a set of instructions on how to interpret client and server timestamps.
@@ -21,7 +18,7 @@ class TimestampOp:
 
     _missing_action: MissingAction
 
-    def __init__(self, parent: "PlusRequest"):
+    def __init__(self, parent: Request):
         self.parent = parent
 
     def __call__(
@@ -72,6 +69,7 @@ class TimestampOp:
                     raise InvalidClientDatetimeField(
                         self._body_field, body_str, self._datetime_format, 400
                     )
+        return self
 
     def raise_get(
         self, code: str | int | None = None, missing_action: MissingAction | None = None
