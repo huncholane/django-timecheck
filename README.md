@@ -9,7 +9,7 @@ It adds a structured way to compare client and server timestamps, detect when up
 ## Features
 
 - ✅ `PlusRequest`: subclass of DRF’s `Request` with timestamp parsing & comparison
-- 🧠 `TimestampOp`: context-aware timestamp diff logic (`client_is_newer`, etc.)
+- 🧠 `TimestampOp`: context-aware timestamp diff logic (`raise_get`, etc.)
 - ⚙️ Configurable via `PlusRequestConf` (env vars or `settings.PLUSREQUEST_CONF`)
 - 🧾 Typed request metadata with `Meta`, `PlusMeta`, and `DefaultMeta`
 - 🔒 Built-in error handling for missing or invalid timestamps
@@ -47,15 +47,15 @@ def view(request: PlusRequest):
 
 The `TimestampOp` class is accessed via `request.top_builder(...)`. It automatically:
 
-* Extracts server timestamps from a model instance
-* Parses client timestamps from headers or body
-* Validates datetime format
-* Raises errors or returns status flags
+- Extracts server timestamps from a model instance
+- Parses client timestamps from headers or body
+- Validates datetime format
+- Raises errors or returns status flags
 
 ### Supported behaviors
 
-* `raise_get`
-* `raise_update`
+- `raise_get`
+- `raise_update`
 
 ---
 
@@ -89,17 +89,17 @@ def view(request: PlusRequest):
 
 ### Meta Types
 
-* `DefaultMeta`: Core Django fields (e.g. `HTTP_HOST`, `REQUEST_METHOD`)
-* `PlusMeta`: Common API headers (e.g. `HTTP_AUTHORIZATION`, `HTTP_X_APP_VERSION`)
-* `Meta`: Union of both
+- `DefaultMeta`: Core Django fields (e.g. `HTTP_HOST`, `REQUEST_METHOD`)
+- `PlusMeta`: Common API headers (e.g. `HTTP_AUTHORIZATION`, `HTTP_X_APP_VERSION`)
+- `Meta`: Union of both
 
 ---
 
 ## Exceptions
 
-* `InvalidClientDatetimeField`
-* `InvalidServerDatetimeField`
-* `NoUpdate`
+- `InvalidClientDatetimeField`
+- `InvalidServerDatetimeField`
+- `NoUpdate`
 
 Raised when timestamps are missing, malformatted, or update should be skipped.
 
