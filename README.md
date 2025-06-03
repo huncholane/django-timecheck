@@ -26,6 +26,24 @@ Make sure your project has a valid `setup.py` or `pyproject.toml`.
 
 ---
 
+Add to middleware. It's safe to add anywhere in the middleware since it only effects typing,
+and the functionality is lazy.
+
+```python
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "plusrequest.middleware.PlusRequestMiddleware",
+]
+
+```
+
+---
+
 ## Usage
 
 ### Example View
