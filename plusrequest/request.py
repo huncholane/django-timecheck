@@ -1,6 +1,5 @@
 from typing import (
     TYPE_CHECKING,
-    cast,
 )
 from rest_framework.request import Request
 
@@ -27,5 +26,4 @@ class PlusRequest(Request):
 
     @classmethod
     def _promote_drf_to_plus_request(cls, request: Request):
-        request.__class__ = cls
-        return cast(PlusRequest, request)
+        return cls(request._request)
