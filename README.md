@@ -69,7 +69,7 @@ TimeCheck(request, ...) has the following arguments:
 
 ### TimeCheck Methods
 
-- `check_get` Raises a `NoUpdate` exception when the client timestamp is newer than or equal to the server timestamp. Returns a True if the client should receive data.
+- `should_get` Raises a `NoUpdate` exception when the client timestamp is newer than or equal to the server timestamp. Returns a True if the client should receive data.
 - `check_update` Raises a `NoUpdate` exception when the client timestamp is older than or equal to the server timestamp. Returns a True if the update should continue.
 
 ---

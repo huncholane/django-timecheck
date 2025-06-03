@@ -75,7 +75,7 @@ class TimeCheckPrivate:
                 except Exception:
                     raise InvalidClientDatetimeField(self._body_field, body_str)
 
-    def check_get(self):
+    def should_get(self):
         """Raises a drf exception `NoUpdate` which provides details that there is no need to give data back to the user."""
         logger.debug(
             f"Checking get: client={self.client_timestamp}, server={self.server_timestamp}"
@@ -109,3 +109,4 @@ class TimeCheckPrivate:
                 raise NoUpdate(self.request.method, self._noupdate_code)
             else:
                 return False
+        return True

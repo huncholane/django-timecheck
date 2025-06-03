@@ -9,7 +9,7 @@ class View(APIView):
     def get(self, request):
         instance = Post.objects.all().first()
         if instance:
-            TimeCheck(request, instance).check_get()
+            TimeCheck(request, instance).should_get()
         return Response(
             {
                 "CONTENT_LENGTH": request.META.get("CONTENT_LENGTH"),
