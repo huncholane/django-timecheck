@@ -30,12 +30,12 @@ class TimeCheckPrivate:
         instance: models.Model | None = None,
         server_timestamp: dt.datetime | None = None,
         client_timestamp: dt.datetime | None = None,
-        header_field=conf["header_timestamp_field"],
-        body_field=conf["body_timestamp_field"],
-        instance_field=conf["instance_timestamp_field"],
+        header_field=conf["header_field"],
+        body_field=conf["body_field"],
+        instance_field=conf["instance_field"],
         missing_action: MissingAction = conf["missing_action"],
         noupdate_code=conf["noupdate_code"],
-        dt_fmt=conf["datetime_format"],
+        dt_fmt=conf["dt_fmt"],
     ):
         self.request = request
         self._header_field = header_field

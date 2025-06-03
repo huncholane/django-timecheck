@@ -3,7 +3,10 @@ from rest_framework.test import APIClient
 from django.test import TestCase
 from example_app.models import Post
 from timecheck.settings import conf
-from timecheck.utils import fmt_dt
+
+
+def fmt_dt(t: dt.datetime):
+    return dt.datetime.strftime(t, conf["dt_fmt"])
 
 
 class TimeCheckTests(TestCase):
