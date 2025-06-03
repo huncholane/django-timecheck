@@ -18,7 +18,7 @@ class View(APIView):
         )
 
     def put(self, request):
-        instance = Post.objects.filter(request.data.get("id", None)).first()
+        instance = Post.objects.all().first()
         if instance:
-            TimeCheck(request, instance).check_get()
+            TimeCheck(request, instance).check_update()
         return Response({"port": request.META.get("SERVER_PORT")})

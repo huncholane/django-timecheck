@@ -17,3 +17,4 @@ class TimeCheckConf(TypedDict):
     missing_action: MissingAction
     """What do do when the client does not provide a timestamp"""
     datetime_format: str
+    replace_with_z: bool
