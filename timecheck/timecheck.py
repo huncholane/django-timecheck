@@ -30,20 +30,23 @@ class TimeCheckPrivate:
         instance: models.Model | None = None,
         server_timestamp: dt.datetime | None = None,
         client_timestamp: dt.datetime | None = None,
-        header_field=conf["header_field"],
-        body_field=conf["body_field"],
-        instance_field=conf["instance_field"],
-        missing_action: MissingAction = conf["missing_action"],
-        noupdate_code=conf["noupdate_code"],
-        dt_fmt=conf["dt_fmt"],
+        header_field: str | None = None,
+        body_field: str | None = None,
+        instance_field: str | None = None,
+        missing_action: MissingAction | None = None,
+        noupdate_code: int | None = None,
+        dt_fmt: str | None = None,
+        raise_exception: bool | None = None,
     ):
         self.request = request
-        self._header_field = header_field
-        self._body_field = body_field
-        self._instance_field = instance_field
-        self._noupdate_code = noupdate_code
-        self._missing_action = missing_action
-        self._dt_fmt = dt_fmt
+        self._header_field = header_field or conf["header_field"]
+        self._body_field = body_field or conf["body_field"]
+        self._instance_field = instance_field or conf["instance_field"]
+        self._noupdate_code = noupdate_code or conf["noupdate_code"]
+        self._missing_action = missing_action or conf["missing_action"]
+        self._dt_fmt = dt_fmt or conf["dt_fmt"]
+        self._raise_exception = raise_exception or conf["raise_exception"]
+        logger.debug(f"raise_exception={raise_exception}, {conf['raise_exception']}")
         self.client_timestamp = client_timestamp
 
         if server_timestamp:
@@ -79,9 +82,16 @@ class TimeCheckPrivate:
         )
         if not self.client_timestamp:
             if self._missing_action == "noupdate":
-                raise NoUpdate(self.request.method, self._noupdate_code)
+                if self._raise_exception:
+                    raise NoUpdate(self.request.method, self._noupdate_code)
+                else:
+                    return False
         elif self.client_timestamp >= self.server_timestamp:
-            raise NoUpdate(self.request.method, self._noupdate_code)
+            if self._raise_exception:
+                raise NoUpdate(self.request.method, self._noupdate_code)
+            else:
+                return False
+        return True
 
     def check_update(self):
         """Raises a drf exception `NoUpdate` which provides details that there is no need to update the server."""
@@ -90,6 +100,12 @@ class TimeCheckPrivate:
         )
         if not self.client_timestamp:
             if self._missing_action == "noupdate":
-                raise NoUpdate(self.request.method, self._noupdate_code)
+                if self._raise_exception:
+                    raise NoUpdate(self.request.method, self._noupdate_code)
+                else:
+                    return False
         elif self.client_timestamp <= self.server_timestamp:
-            raise NoUpdate(self.request.method, self._noupdate_code)
+            if self._raise_exception:
+                raise NoUpdate(self.request.method, self._noupdate_code)
+            else:
+                return False

@@ -65,11 +65,12 @@ TimeCheck(request, ...) has the following arguments:
   - `continue` allows the view to continue processing data when the client does not provide a timestamp
 - **noupdate_code** `int` The response code for exceptions raised to indicate the view should stop processing
 - **dt_fmt** `str` The datetime format used to normalize timestamps. Useful when the client and server use mismatched time depths (defaults to config)
+- **raise_exception** `bool` Raises and exception if the process should stop (defaults to config)
 
 ### TimeCheck Methods
 
-- `check_get` Raises a `NoUpdate` exception when the client timestamp is newer than or equal to the server timestamp
-- `raise_update` Raises a `NoUpdate` exception when the client timestamp is older than or equal to the server timestamp
+- `check_get` Raises a `NoUpdate` exception when the client timestamp is newer than or equal to the server timestamp. Returns a True if the client should receive data.
+- `check_update` Raises a `NoUpdate` exception when the client timestamp is older than or equal to the server timestamp. Returns a True if the update should continue.
 
 ---
 
@@ -77,7 +78,7 @@ TimeCheck(request, ...) has the following arguments:
 
 TimeCheck is customizable through the django settings, env, and on a per usage basis.
 
-### Django Settings Dictionairy Defaults
+### Django Settings Dictionairy (Defaults)
 
 ```python
 TIMECHECK_CONF = {
@@ -87,6 +88,7 @@ TIMECHECK_CONF = {
     "instance_field": "lastUpdated",
     "missing_action": "noupdate",
     "noupdate_code": 418,
+    "raise_exception": True,
 }
 ```
 
@@ -102,6 +104,7 @@ Set via environment variables or in `settings.TIMECHECK_CONF`:
 | `TIMECHECK_NOUPDATE_CODE`            | `418`                 | Error code raised when update is unnecessary (int)                 |
 | `TIMECHECK_MISSING_ACTION`           | `noupdate`            | Action if timestamp is missing (`continue`, `noupdate`) |
 | `TIMECHECK_DT_FMT`          | `%Y-%m-%dT%H:%M:%S%z` | Timestamp parsing format (str)                                     |
+| RAISE_EXCEPTION | True | Raises exceptions by default (bool) |
 
 ---
 

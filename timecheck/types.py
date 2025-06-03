@@ -18,3 +18,5 @@ class TimeCheckConf(TypedDict):
     """What do do when the client does not provide a timestamp"""
     dt_fmt: str
     """Format used to normalize datetimes."""
+    raise_exception: bool
+    """Raise an exception or just store the should update value"""

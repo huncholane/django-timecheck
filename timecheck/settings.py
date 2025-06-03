@@ -24,5 +24,6 @@ conf = TimeCheckConf(
         "instance_field": getval(str, "instance_field", "lastUpdated"),
         "missing_action": getval(str, "missing_action", "noupdate"),
         "noupdate_code": getval(int, "noupdate_code", 418),
+        "raise_exception": getval(bool, "raise_exception", True),
     }
 )
