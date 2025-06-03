@@ -17,3 +17,7 @@ def fmt_dt(
     if replace_with_z:
         return s.replace("+0000", "Z")
     return s
+
+
+def normalize_dt(t: dt.datetime, fmt=conf["datetime_format"]):
+    return dt.datetime.strptime(t.strftime(fmt), fmt)

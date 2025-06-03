@@ -1,19 +1,18 @@
 import datetime as dt
-from django.utils.timezone import make_aware
 from rest_framework.test import APIClient
-from rest_framework import status
 from django.test import TestCase
 from example_app.models import Post
 from timecheck.settings import conf
-from timecheck.utils import fmt_dt, parse_dt
+from timecheck.utils import fmt_dt
 
 
 class TimeCheckTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.now = parse_dt("2024-01-01T12:00:00Z")
-        self.later = parse_dt("2024-01-02T12:00:00Z")
-        self.earlier = parse_dt("2024-01-01T11:00:00Z")
+        self.now = dt.datetime.now(dt.UTC)
+        self.earlier = self.now - dt.timedelta(seconds=4)
+        self.later = self.now + dt.timedelta(seconds=4)
+        Post.objects.create(lastUpdated=self.now, text="Test")
 
     def test_get_client_is_newer(self):
         client_time = fmt_dt(self.later)

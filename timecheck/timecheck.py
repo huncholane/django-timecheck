@@ -11,7 +11,7 @@ from timecheck.types import MissingAction
 from timecheck.settings import conf
 import logging
 
-from timecheck.utils import parse_dt
+from timecheck.utils import normalize_dt, parse_dt
 
 
 logger = logging.getLogger(__name__)
@@ -35,21 +35,23 @@ class TimeCheckPrivate:
         instance_field=conf["instance_timestamp_field"],
         missing_action: MissingAction = conf["missing_action"],
         noupdate_code=conf["noupdate_code"],
+        dt_fmt=conf["datetime_format"],
     ):
         self.request = request
-        self._header_field = header_field or conf["header_timestamp_field"]
-        self._body_field = body_field or conf["body_timestamp_field"]
-        self._instance_field = instance_field or conf["instance_timestamp_field"]
-        self._noupdate_code = noupdate_code or conf["noupdate_code"]
-        self._missing_action = missing_action or conf["missing_action"]
+        self._header_field = header_field
+        self._body_field = body_field
+        self._instance_field = instance_field
+        self._noupdate_code = noupdate_code
+        self._missing_action = missing_action
+        self._dt_fmt = dt_fmt
         self.client_timestamp = client_timestamp
 
         if server_timestamp:
-            self.server_timestamp = server_timestamp
+            self.server_timestamp = normalize_dt(server_timestamp)
         elif self._instance_field and hasattr(instance, self._instance_field):
             val = getattr(instance, self._instance_field)
             if isinstance(val, dt.datetime):
-                self.server_timestamp = val
+                self.server_timestamp = normalize_dt(val, self._date)
         else:
             raise InvalidServerDatetimeField(
                 self._instance_field or "No instance field",
