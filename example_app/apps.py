@@ -8,10 +8,8 @@ class ExampleAppConfig(AppConfig):
     name = "example_app"
 
     def ready(self):
-        print("HELLO")
         post_migrate.connect(load_fixtures, sender=self)
 
 
 def load_fixtures(**_):
-    print("Making init data")
     call_command("loaddata", "initial_data", app_label="example_app", verbosity=0)

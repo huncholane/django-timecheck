@@ -1,16 +1,15 @@
-from typing import Union
-from rest_framework.request import Request
 from rest_framework.response import Response
 from example_app.models import Post
-from plusrequest.request import PlusRequest
 from rest_framework.views import APIView
+
+from timecheck import TimeCheck
 
 
 class View(APIView):
-    def get(self, request: PlusRequest):
+    def get(self, request):
         instance = Post.objects.all().first()
         if instance:
-            request.top_builder(instance=instance).raise_get()
+            TimeCheck(request, instance).check_get()
         return Response(
             {
                 "CONTENT_LENGTH": request.META.get("CONTENT_LENGTH"),
@@ -18,8 +17,8 @@ class View(APIView):
             }
         )
 
-    def put(self, request: PlusRequest):
+    def put(self, request):
         instance = Post.objects.filter(request.data.get("id", None)).first()
         if instance:
-            request.top_builder(instance=instance).raise_update()
+            TimeCheck(request, instance).check_get()
         return Response({"port": request.META.get("SERVER_PORT")})
