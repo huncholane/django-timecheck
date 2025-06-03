@@ -92,7 +92,7 @@ TIMECHECK_CONF = {
 
 ###
 
-Set via environment variables or in `settings.PLUSREQUEST_CONF`:
+Set via environment variables or in `settings.TIMECHECK_CONF`:
 
 | Key                                    | Default               | Description                                                   |
 | -------------------------------------- | --------------------- | ------------------------------------------------------------- |
