@@ -1,7 +1,7 @@
 [project]
-name = "django-plusrequest"
+name = "django-timecheck"
 version = "0.1.0"
-description = "Middleware to add more functionality to request objects and improve type hints."
+description = "Wrapper for django request to help handle synchronization."
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = ["django"]
