@@ -1,0 +1,14 @@
+[project]
+name = "django-plusrequest"
+version = "0.1.0"
+description = "Middleware to add more functionality to request objects and improve type hints."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = ["django"]
+
+[project.urls]
+Homepage = "https://github.com/huncholane/django-smartwatch"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
