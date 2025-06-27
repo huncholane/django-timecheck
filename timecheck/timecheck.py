@@ -39,14 +39,23 @@ class TimeCheckPrivate:
         raise_exception: bool | None = None,
     ):
         self.request = request
-        self._header_field = header_field or conf["header_field"]
-        self._body_field = body_field or conf["body_field"]
-        self._instance_field = instance_field or conf["instance_field"]
-        self._noupdate_code = noupdate_code or conf["noupdate_code"]
-        self._missing_action = missing_action or conf["missing_action"]
-        self._dt_fmt = dt_fmt or conf["dt_fmt"]
-        self._raise_exception = raise_exception or conf["raise_exception"]
-        logger.debug(f"raise_exception={raise_exception}, {conf['raise_exception']}")
+        self._header_field = (
+            header_field if header_field is not None else conf["header_field"]
+        )
+        self._body_field = body_field if body_field is not None else conf["body_field"]
+        self._instance_field = (
+            instance_field if instance_field is not None else conf["instance_field"]
+        )
+        self._noupdate_code = (
+            noupdate_code if noupdate_code is not None else conf["noupdate_code"]
+        )
+        self._missing_action = (
+            missing_action if missing_action is not None else conf["missing_action"]
+        )
+        self._dt_fmt = dt_fmt if dt_fmt is not None else conf["dt_fmt"]
+        self._raise_exception = (
+            raise_exception if raise_exception is not None else conf["raise_exception"]
+        )
         self.client_timestamp = client_timestamp
 
         if server_timestamp:
